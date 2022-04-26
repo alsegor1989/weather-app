@@ -1,4 +1,11 @@
+import useWeatherService from '../../services/WeatherService';
+
 function App() {
+
+  const { getCurrentWeather } = useWeatherService();
+
+  getCurrentWeather('Москва').then(res => console.log(res))
+
   return (
     <div className="App">
       <header className="App-header">
