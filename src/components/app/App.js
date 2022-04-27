@@ -1,27 +1,39 @@
-import useWeatherService from '../../services/WeatherService';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+//import useWeatherService from '../../services/WeatherService';
+
+const AppHeader = () => {
+  return (
+    <Container>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#home">Weather App</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Now</Nav.Link>
+              <Nav.Link href="#link">Today</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </Container>
+  )
+}
+
+
+
 
 function App() {
 
-  const { getCurrentWeather } = useWeatherService();
+  // const { getCurrentWeather } = useWeatherService();
 
-  getCurrentWeather('Москва').then(res => console.log(res))
+  // getCurrentWeather('Москва').then(res => console.log(res))
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppHeader />
+    </>
   );
 }
 

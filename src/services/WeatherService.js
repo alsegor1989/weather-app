@@ -13,7 +13,6 @@ const useWeatherService = () => {
         return res;
     }
 
-
     const getCoordinatesByLocationName = async (cityName) => {
         const res = await request(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&${_apiKey}`);
         return _transformCoordinates(res[0]);
