@@ -5,7 +5,7 @@ export const useHttp = () => {
 
     const request = useCallback(async (url) => {
 
-        // setProcess('loading');
+        setProcess('loading');
 
         try {
             const response = await fetch(url);
@@ -18,14 +18,14 @@ export const useHttp = () => {
 
             return data;
         } catch (e) {
-            // setProcess('error');
+            setProcess('error');
             throw e;
         }
 
     }, []);
 
     const clearError = useCallback(() => {
-        // setProcess('loading');
+        setProcess('loading');
     }, []);
 
     return {
