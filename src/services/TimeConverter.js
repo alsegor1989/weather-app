@@ -13,4 +13,8 @@ function timeConverterFromUNIX(UNIX_timestamp) {
     return time;
 }
 
-export { timeConverterFromUNIX };
+function addLeadingZeros(number, targetLenght = 2) {
+    return ('00000000000' + number).slice(-targetLenght);
+}
+
+export { timeConverterFromUNIX, addLeadingZeros };
