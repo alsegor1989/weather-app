@@ -4,11 +4,11 @@ import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
 import { timeConverterFromUNIX, addLeadingZeros } from '../../services/TimeConverter';
 
-const WeatherNow = () => {
+const WeatherNow = (props) => {
     // console.log('render WeatherNow');
 
     const [weatherNow, setWeatherNow] = useState(null);
-    const { process, setProcess, getCurrentWeather } = useWeatherService();
+    const { process, setProcess, getCurrentWeather, getCoordinatesByLocationName } = useWeatherService();
 
     useEffect(() => {
         updateWeather();
@@ -19,9 +19,10 @@ const WeatherNow = () => {
     }
 
     const updateWeather = () => {
-        getCurrentWeather('Москва')
-            .then(onWeatherNowLoaded)
-            .then(() => setProcess('confirmed'));
+        getCoordinatesByLocationName('Москва')
+            .then(res => getCurrentWeather(res[0])
+                .then(onWeatherNowLoaded)
+                .then(() => setProcess('confirmed')));
     }
 
     function renderWeather(data) {
