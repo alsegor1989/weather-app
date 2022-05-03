@@ -3,31 +3,32 @@ import { useState, useEffect } from 'react';
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
 import { timeConverterFromUNIX, addLeadingZeros } from '../../services/TimeConverter';
+import img from './arrow.png';
 
 const WeatherNow = (props) => {
-    // console.log('render WeatherNow');
-
     const [weatherNow, setWeatherNow] = useState(null);
-    const { process, setProcess, getCurrentWeather, getCoordinatesByLocationName } = useWeatherService();
+    const { process, setProcess, getCurrentWeather, } = useWeatherService();
 
     useEffect(() => {
         updateWeather();
-    }, [])
+    }, [props.selectedCity])
 
     const onWeatherNowLoaded = (weather) => {
         setWeatherNow(weather);
     }
 
     const updateWeather = () => {
-        getCoordinatesByLocationName('Москва')
-            .then(res => getCurrentWeather(res[0])
-                .then(onWeatherNowLoaded)
-                .then(() => setProcess('confirmed')));
+        const { selectedCity } = props;
+        if (!selectedCity) {
+            return;
+        }
+
+        getCurrentWeather(selectedCity)
+            .then(onWeatherNowLoaded)
+            .then(() => setProcess('confirmed'));
     }
 
     function renderWeather(data) {
-        // console.log(data);
-
         const date = timeConverterFromUNIX(data.dt);
         const dateString = date.date + ' ' + date.month + ' ' + date.year + ' ' + addLeadingZeros(date.hour) + ':' + addLeadingZeros(date.min) + ':' + addLeadingZeros(date.sec);
         const sunrise = timeConverterFromUNIX(data.sys.sunrise);
@@ -40,14 +41,22 @@ const WeatherNow = (props) => {
 
         return (
             <div>
-                <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="icon" />
+                <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`} alt="icon" />
+                <div id="city">{`Город: ${data.name}`}</div>
                 <div id="date">{`Данные обновлены ${dateString}`}</div>
                 <div id="temp">{`Температура ${temp}`}</div>
                 <div id="feels_like">{`По ощущению ${feels_like}`}</div>
                 <div id="pressure">{`Давление ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
                 <div id="humidity">{`Влажность ${data.main.humidity}%`}</div>
                 <div id="sky">{`${data.weather[0].description}`}</div>
-                <div id="wind">Ветер {`${data.wind.speed}`} м/с {`${data.wind.deg}`}</div>
+                <div id="wind">
+                    <div id="speed">Ветер {`${data.wind.speed}`} м/с</div>
+                    <img
+                        src={img}
+                        alt='Direction'
+                        style={{ display: 'block', width: '30px', height: '30px', objectFit: 'contain', margin: '0 auto', transform: `rotate(${360 - data.wind.deg}deg)` }} />
+                    {/* <div id="direction">{`${data.wind.deg}`}</div> */}
+                </div>
                 <div id="sunrise">{`Восход: ${dateSunrise}`}</div>
                 <div id="sunset">{`Закат: ${dateSunset}`}</div>
             </div>

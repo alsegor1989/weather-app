@@ -22,8 +22,7 @@ const setContent = (process, Component, data) => {
     }
 }
 
-const CitySearchForm = () => {
-    const [city, setCity] = useState(null);
+const CitySearchForm = (props) => {
     const [cityName, setCityName] = useState('');
     const [foundCities, setFoundCities] = useState([]);
     const { process, setProcess, getCoordinatesByLocationName } = useWeatherService();
@@ -38,12 +37,12 @@ const CitySearchForm = () => {
             const choosenCity = foundCities.filter((item) => {
                 return e.target.value === item.localName + ', ' + item.country;
             });
-            setCity(choosenCity[0]);
+            props.onCitySelected(choosenCity[0]);
         }
     }
 
     const searchCities = () => {
-        if (cityName.length > 3) {
+        if (cityName.length > 0) {
             getCoordinatesByLocationName(cityName)
                 .then(res => setFoundCities(res))
                 .then(() => setProcess('confirmed'));
