@@ -32,18 +32,18 @@ const CitySearchForm = () => {
         searchCities();
     }, [cityName])
 
-    // useEffect(() => {
-    //     // console.log(foundCities);
-    //     renderCitiesList();
-    // }, [foundCities])
-
     const onCityNameChange = (e) => {
         setCityName(e.target.value);
+        if (e.nativeEvent.inputType === undefined) {
+            const choosenCity = foundCities.filter((item) => {
+                return e.target.value === item.localName + ', ' + item.country;
+            });
+            setCity(choosenCity[0]);
+        }
     }
 
     const searchCities = () => {
         if (cityName.length > 3) {
-            // console.log(cityName);
             getCoordinatesByLocationName(cityName)
                 .then(res => setFoundCities(res))
                 .then(() => setProcess('confirmed'));
@@ -57,7 +57,6 @@ const CitySearchForm = () => {
             )
         });
 
-        console.log(options);
         return (
             <datalist id='cityName'>
                 {options}
