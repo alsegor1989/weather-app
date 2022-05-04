@@ -10,6 +10,22 @@ const useWeatherService = () => {
         return await request(`${_apiBase}weather?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru`);
     }
 
+    const getTodayWeather = async ({ lat, lon }) => {
+        return await request(`${_apiBase}forecast?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=8`);
+    }
+
+    const getOneWeekWeather = async ({ lat, lon }) => {
+        return await request(`${_apiBase}forecast/daily?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=7`);
+    }
+
+    const getTwoWeeksWeather = async ({ lat, lon }) => {
+        return await request(`${_apiBase}forecast/daily?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=14`);
+    }
+
+    const getMonthWeather = async ({ lat, lon }) => {
+        return await request(`${_apiBase}forecast/climate?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru`);
+    }
+
     const getCoordinatesByLocationName = async (cityName) => {
         const res = await request(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&${_apiKey}`);
         return res.map(_transformCoordinates);
@@ -27,7 +43,8 @@ const useWeatherService = () => {
 
     return {
         request, clearError, process, setProcess,
-        getCurrentWeather, getCoordinatesByLocationName
+        getCurrentWeather, getTodayWeather, getOneWeekWeather, getTwoWeeksWeather, getMonthWeather,
+        getCoordinatesByLocationName
     }
 
 }
