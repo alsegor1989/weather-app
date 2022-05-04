@@ -4,18 +4,18 @@ import Card from 'react-bootstrap/Card';
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
 import { timeConverterFromUNIX, addLeadingZeros } from '../../services/TimeConverter';
-import img from './arrow.png';
+import img from '../../resources/img/arrow.png';
 
-const WeatherNow = (props) => {
-    const [weatherNow, setWeatherNow] = useState(null);
+const CurrentWeather = (props) => {
+    const [currentWeather, setCurrentWeather] = useState(null);
     const { process, setProcess, getCurrentWeather, } = useWeatherService();
 
     useEffect(() => {
         updateWeather();
     }, [props.selectedCity])
 
-    const onWeatherNowLoaded = (weather) => {
-        setWeatherNow(weather);
+    const onCurrentWeatherLoaded = (weather) => {
+        setCurrentWeather(weather);
     }
 
     const updateWeather = () => {
@@ -25,7 +25,7 @@ const WeatherNow = (props) => {
         }
 
         getCurrentWeather(selectedCity)
-            .then(onWeatherNowLoaded)
+            .then(onCurrentWeatherLoaded)
             .then(() => setProcess('confirmed'));
     }
 
@@ -76,9 +76,9 @@ const WeatherNow = (props) => {
 
     return (
         <Card style={{ width: '18rem' }}>
-            {setContent(process, () => renderWeather(weatherNow))}
+            {setContent(process, () => renderWeather(currentWeather))}
         </Card>
     )
 }
 
-export default WeatherNow;
+export default CurrentWeather;

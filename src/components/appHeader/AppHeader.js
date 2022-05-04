@@ -11,8 +11,11 @@ const AppHeader = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Now</Nav.Link>
-                        <Nav.Link href="/today">Today</Nav.Link>
+                        <Nav.Link href="/">Сейчас</Nav.Link>
+                        <Nav.Link href="/today">Сегодня</Nav.Link>
+                        <Nav.Link href="/week">Неделя</Nav.Link>
+                        <Nav.Link href="/two-weeks">2 недели</Nav.Link>
+                        <Nav.Link href="/month">Месяц</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

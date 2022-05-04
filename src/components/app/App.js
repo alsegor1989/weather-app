@@ -8,7 +8,7 @@ import AppHeader from '../appHeader/AppHeader';
 import CitySearchForm from '../citySearchForm/CitySearchForm';
 // import WeatherNow from '../weatherNow/WeatherNow';
 
-const WeatherNow = lazy(() => import('../weatherNow/WeatherNow'));
+const CurrentWeather = lazy(() => import('../currentWeather/CurrentWeather'));
 
 function App() {
 
@@ -25,8 +25,11 @@ function App() {
         <CitySearchForm onCitySelected={onCitySelected} />
         <Suspense fallback={<Spinner />}>
           <Routes>
-            <Route path="/" element={<WeatherNow selectedCity={selectedCity} />} />
+            <Route path="/" element={<CurrentWeather selectedCity={selectedCity} />} />
             <Route path="/today" element={null} />
+            <Route path="/week" element={null} />
+            <Route path="/two-weeks" element={null} />
+            <Route path="/month" element={null} />
           </Routes>
         </Suspense>
       </Container>
