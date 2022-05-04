@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Form, Row, Col } from 'react-bootstrap';
 
 import useWeatherService from '../../services/WeatherService';
+import Spinner from '../../components/spinner/Spinner';
 // import setContent from '../../utils/setContent';
 
 const setContent = (process, Component, data) => {
@@ -9,7 +11,7 @@ const setContent = (process, Component, data) => {
             // return <Skeleton />;
             break;
         case 'loading':
-            // return <Spinner />
+            return <Spinner />
             break;
         case 'confirmed':
             return <Component data={data} />;
@@ -25,6 +27,7 @@ const setContent = (process, Component, data) => {
 const CitySearchForm = (props) => {
     const [cityName, setCityName] = useState('');
     const [foundCities, setFoundCities] = useState([]);
+    const [isSelected, setIsSelected] = useState(false);
     const { process, setProcess, getCoordinatesByLocationName } = useWeatherService();
 
     useEffect(() => {
@@ -38,11 +41,14 @@ const CitySearchForm = (props) => {
                 return e.target.value === item.localName + ', ' + item.country;
             });
             props.onCitySelected(choosenCity[0]);
+            setIsSelected(true);
+        } else {
+            setIsSelected(false);
         }
     }
 
     const searchCities = () => {
-        if (cityName.length > 0) {
+        if (cityName.length > 0 && !isSelected) {
             getCoordinatesByLocationName(cityName)
                 .then(res => setFoundCities(res))
                 .then(() => setProcess('confirmed'));
@@ -64,16 +70,20 @@ const CitySearchForm = (props) => {
     }
 
     return (
-        <div>
-            <label>Город:</label>
-            <input
-                type='text'
-                list='cityName'
-                placeholder='Введите название города'
-                value={cityName}
-                onChange={onCityNameChange}></input>
-            {setContent(process, () => renderCitiesList(foundCities))}
-        </div>
+        <Row>
+            <Col md={4}>
+                <Form>
+                    <Form.Label>Город:</Form.Label>
+                    <Form.Control
+                        type='text'
+                        list='cityName'
+                        placeholder='Введите название города'
+                        value={cityName}
+                        onChange={onCityNameChange}></Form.Control>
+                    {setContent(process, () => renderCitiesList(foundCities))}
+                </Form>
+            </Col>
+        </Row>
     )
 
 }

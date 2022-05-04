@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
 
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
@@ -41,20 +42,28 @@ const WeatherNow = (props) => {
 
         return (
             <div>
-                <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`} alt="icon" />
+                <Card.Img
+                    variant="top"
+                    src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`}
+                    alt="Icon"
+                    style={{ width: '200px' }}
+                    className="mx-auto d-block" />
                 <div id="city">{`Город: ${data.name}`}</div>
-                <div id="date">{`Данные обновлены ${dateString}`}</div>
-                <div id="temp">{`Температура ${temp}`}</div>
-                <div id="feels_like">{`По ощущению ${feels_like}`}</div>
-                <div id="pressure">{`Давление ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
-                <div id="humidity">{`Влажность ${data.main.humidity}%`}</div>
-                <div id="sky">{`${data.weather[0].description}`}</div>
+                <div id="date">{`Данные обновлены: ${dateString}`}</div>
+                <div id="temp">{`Температура: ${temp}`}</div>
+                <div id="feels_like">{`По ощущению: ${feels_like}`}</div>
+                <div id="pressure">{`Давление: ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
+                <div id="humidity">{`Влажность: ${data.main.humidity}%`}</div>
+                <div id="sky">{`Описание: ${data.weather[0].description}`}</div>
                 <div id="wind">
-                    <div id="speed">Ветер {`${data.wind.speed}`} м/с</div>
-                    <img
+                    <div id="speed">Ветер: {`${data.wind.speed}`} м/с</div>
+                    <Card.Img
                         src={img}
                         alt='Direction'
-                        style={{ display: 'block', width: '30px', height: '30px', objectFit: 'contain', margin: '0 auto', transform: `rotate(${360 - data.wind.deg}deg)` }} />
+                        style={{
+                            display: 'block', width: '30px', height: '30px', objectFit: 'contain',
+                            borderRadius: '50%', margin: '0 auto', transform: `rotate(${360 - data.wind.deg}deg)`
+                        }} />
                     {/* <div id="direction">{`${data.wind.deg}`}</div> */}
                 </div>
                 <div id="sunrise">{`Восход: ${dateSunrise}`}</div>
@@ -64,9 +73,9 @@ const WeatherNow = (props) => {
     }
 
     return (
-        <div>
+        <Card style={{ width: '18rem' }}>
             {setContent(process, () => renderWeather(weatherNow))}
-        </div>
+        </Card>
     )
 }
 
