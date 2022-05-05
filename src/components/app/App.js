@@ -8,7 +8,7 @@ import AppHeader from '../appHeader/AppHeader';
 import CitySearchForm from '../citySearchForm/CitySearchForm';
 
 const CurrentWeather = lazy(() => import('../currentWeather/CurrentWeather'));
-const TodayWeather = lazy(() => import('../todayWeather/TodayWeather'));
+const DayForecastWeather = lazy(() => import('../dayForecastWeather/DayForecastWeather'));
 
 function App() {
 
@@ -26,8 +26,8 @@ function App() {
         <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<CurrentWeather selectedCity={selectedCity} />} />
-            <Route path="/today" element={<TodayWeather selectedCity={selectedCity} />} />
-            <Route path="/tomorrow" element={null} />
+            <Route path="/today" element={<DayForecastWeather selectedCity={selectedCity} day='today' />} />
+            <Route path="/tomorrow" element={<DayForecastWeather selectedCity={selectedCity} day='tomorrow' />} />
             <Route path="/week" element={null} />
           </Routes>
         </Suspense>
