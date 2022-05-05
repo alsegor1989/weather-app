@@ -7,8 +7,9 @@ function timeConverterFromUNIX(UNIX_timestamp) {
     const hour = a.getHours();
     const min = a.getMinutes();
     const sec = a.getSeconds();
+    const dateRepr = date + ' ' + month + ' ' + year + ' ' + addLeadingZeros(hour) + ':' + addLeadingZeros(min) + ':' + addLeadingZeros(sec);
     const time = {
-        year, month, date, hour, min, sec
+        UNIX_timestamp, year, month, date, hour, min, sec, dateRepr
     }
     return time;
 }

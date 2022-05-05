@@ -70,7 +70,7 @@ const CitySearchForm = (props) => {
     }
 
     return (
-        <Row>
+        <Row className="mb-3">
             <Col md={4}>
                 <Form>
                     <Form.Label>Город:</Form.Label>

@@ -13,9 +13,8 @@ const AppHeader = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Сейчас</Nav.Link>
                         <Nav.Link href="/today">Сегодня</Nav.Link>
+                        <Nav.Link href="/tomorrow">Завтра</Nav.Link>
                         <Nav.Link href="/week">Неделя</Nav.Link>
-                        <Nav.Link href="/two-weeks">2 недели</Nav.Link>
-                        <Nav.Link href="/month">Месяц</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

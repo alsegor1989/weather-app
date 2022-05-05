@@ -53,7 +53,7 @@ const CurrentWeather = (props) => {
                     <div id="updateTime">{`${dateString}`}</div>
                     <div id="temp">{`Температура: ${temp}`}</div>
                     <div id="feels_like">{`По ощущению: ${feels_like}`}</div>
-                    <divt id="pressure">{`Давление: ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</divt>
+                    <div id="pressure">{`Давление: ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
                     <div id="humidity">{`Влажность: ${data.main.humidity}%`}</div>
                     <div id="sky">{`Описание: ${data.weather[0].description}`}</div>
                     <div id="wind" style={{ display: 'flex' }}>
@@ -65,7 +65,6 @@ const CurrentWeather = (props) => {
                                 display: 'block', width: '25px', height: '25px', objectFit: 'contain',
                                 borderRadius: '50%', margin: '0 auto', transform: `rotate(${360 - data.wind.deg}deg)`
                             }} />
-                        {/* <div id="direction">{`${data.wind.deg}`}</div> */}
                     </div>
                     <div id="sunrise">{`Восход: ${dateSunrise}`}</div>
                     <div id="sunset">{`Закат: ${dateSunset}`}</div>
