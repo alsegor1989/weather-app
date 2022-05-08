@@ -29,7 +29,9 @@ const CurrentWeather = (props) => {
             .then(() => setProcess('confirmed'));
     }
 
-    function renderWeather(data) {
+    function renderWeather({ data }) {
+        console.log('renderCurrentWeather');
+
         const date = timeConverterFromUNIX(data.dt);
         const dateString = date.date + ' ' + date.month + ' ' + date.year + ' ' + addLeadingZeros(date.hour) + ':' + addLeadingZeros(date.min) + ':' + addLeadingZeros(date.sec);
         const sunrise = timeConverterFromUNIX(data.sys.sunrise);
@@ -75,7 +77,7 @@ const CurrentWeather = (props) => {
 
     return (
         <Card style={{ width: '18rem' }}>
-            {setContent(process, () => renderWeather(currentWeather))}
+            {setContent(process, renderWeather, currentWeather)}
         </Card>
     )
 }

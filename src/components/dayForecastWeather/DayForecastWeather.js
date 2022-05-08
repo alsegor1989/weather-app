@@ -16,7 +16,7 @@ const DayForecastWeather = (props) => {
 
     useEffect(() => {
         updateWeather();
-    }, [props.selectedCity])
+    }, [props.selectedCity, props.day])
 
     const onTodayWeatherLoaded = (weather) => {
         setTodayWeather(weather.list);
@@ -42,24 +42,25 @@ const DayForecastWeather = (props) => {
         } else {
             getHistoricalWeather(selectedCity, new Date().setHours(0, 0, 0, 0) / 1000)
                 .then(onHistoricalWeatherLoaded)
-                .then(() => getHistoricalWeather(selectedCity, new Date().setHours(0, 0, 0, 0) / 1000 + 60 * 60 * 3)
-                    .then(onHistoricalWeatherLoaded)
-                    .then(() => get5DaysForecastWeather(selectedCity)
-                        .then(onTodayWeatherLoaded)
-                        .then(() => setProcess('confirmed'))));
+                .then(() => getHistoricalWeather(selectedCity, new Date().setHours(0, 0, 0, 0) / 1000 + 60 * 60 * 3))
+                .then(onHistoricalWeatherLoaded)
+                .then(() => get5DaysForecastWeather(selectedCity))
+                .then(onTodayWeatherLoaded)
+                .then(() => setProcess('confirmed'));
         }
     }
 
-    const wrapRenderWeather = () => {
+    const wrapRenderWeather = ({ data }) => {
         return (
             <>
-                {renderHistoricalWeather(historicalWeahter)}
-                {renderWeather(todayWeahter)}
+                {renderHistoricalWeather(data.historicalWeahter)}
+                {renderWeather(data.todayWeahter)}
             </>
         )
     }
 
     function renderHistoricalWeather(data) {
+        // console.log('renderHistoricalWeather');
 
         const weatherCards = data.map(item => {
             const date = timeConverterFromUNIX(item.dt);
@@ -110,6 +111,7 @@ const DayForecastWeather = (props) => {
     }
 
     function renderWeather(data) {
+        // console.log('renderWeather');
 
         const weatherCards = data.map(item => {
             const date = timeConverterFromUNIX(item.dt);
@@ -163,7 +165,7 @@ const DayForecastWeather = (props) => {
 
     return (
         <div className="today__grid">
-            {setContent(process, () => wrapRenderWeather())}
+            {setContent(process, wrapRenderWeather, { historicalWeahter, todayWeahter })}
         </div>
     )
 }

@@ -64,8 +64,8 @@ const CitySearchForm = (props) => {
         }
     }
 
-    const renderCitiesList = (arr) => {
-        const options = arr.map((item, i) => {
+    const renderCitiesList = ({ data }) => {
+        const options = data.map((item, i) => {
             return (
                 <option key={i}>{item.localName + ', ' + item.country}</option>
             )
@@ -89,7 +89,7 @@ const CitySearchForm = (props) => {
                         placeholder='Введите название города'
                         value={cityName}
                         onChange={onCityNameChange}></Form.Control>
-                    {setContent(process, () => renderCitiesList(foundCities))}
+                    {setContent(process, renderCitiesList, foundCities)}
                 </Form>
             </Col>
         </Row>
