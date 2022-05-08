@@ -25,7 +25,7 @@ const DayForecastWeather = (props) => {
     const onHistoricalWeatherLoaded = (weather) => {
         // console.log(historicalWeahter);
         // console.log(weather.hourly);
-        setHistoricalWeather(historicalWeahter => [...historicalWeahter, ...weather.hourly]);
+        setHistoricalWeather(prevProps => [...prevProps, ...weather.hourly]);
     }
 
     const updateWeather = () => {
@@ -34,6 +34,7 @@ const DayForecastWeather = (props) => {
             return;
         }
         setHistoricalWeather([]);
+        console.log(historicalWeahter);
 
         if (props.day === 'tomorrow') {
             get5DaysForecastWeather(selectedCity)
@@ -51,6 +52,7 @@ const DayForecastWeather = (props) => {
     }
 
     const wrapRenderWeather = ({ data }) => {
+        console.log(data);
         return (
             <>
                 {renderHistoricalWeather(data.historicalWeahter)}
@@ -165,6 +167,7 @@ const DayForecastWeather = (props) => {
 
     return (
         <div className="today__grid">
+            {/* {console.log(process)} */}
             {setContent(process, wrapRenderWeather, { historicalWeahter, todayWeahter })}
         </div>
     )
