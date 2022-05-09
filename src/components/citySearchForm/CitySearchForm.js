@@ -81,15 +81,17 @@ const CitySearchForm = (props) => {
     return (
         <Row className="mb-3">
             <Col md={4}>
-                <Form>
+                <Form >
                     <Form.Label>Город:</Form.Label>
-                    <Form.Control
-                        type='text'
-                        list='cityName'
-                        placeholder='Введите название города'
-                        value={cityName}
-                        onChange={onCityNameChange}></Form.Control>
-                    {setContent(process, renderCitiesList, foundCities)}
+                    <div style={{ display: 'flex' }}>
+                        <Form.Control
+                            type='text'
+                            list='cityName'
+                            placeholder='Введите название города'
+                            value={cityName}
+                            onChange={onCityNameChange}></Form.Control>
+                        {setContent(process, renderCitiesList, foundCities)}
+                    </div>
                 </Form>
             </Col>
         </Row>
