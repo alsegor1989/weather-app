@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Helmet } from 'react-helmet';
 
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
@@ -157,9 +158,18 @@ const DayForecast = (props) => {
     }
 
     return (
-        <div className="today__grid">
-            {setContent(process, wrapRenderWeather, { historicalWeahter, todayWeahter })}
-        </div>
+        <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content={`Forecast: ${props.day}`}
+                />
+                <title>{`Forecast: ${props.day}`}</title>
+            </Helmet>
+            <div className="today__grid">
+                {setContent(process, wrapRenderWeather, { historicalWeahter, todayWeahter })}
+            </div>
+        </>
     )
 }
 

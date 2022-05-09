@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Helmet } from 'react-helmet';
 
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
-import { timeConverterFromUNIX, addLeadingZeros } from '../../services/TimeConverter';
+import { timeConverterFromUNIX } from '../../services/TimeConverter';
 import img from '../../resources/img/arrow.png';
 import './weekForecast.scss';
 
@@ -83,9 +84,18 @@ const WeekForecast = (props) => {
     }
 
     return (
-        <div className="today__grid">
-            {setContent(process, renderWeather, oneWeekForecast)}
-        </div>
+        <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="One week forecast"
+                />
+                <title>One week forecast</title>
+            </Helmet>
+            <div className="today__grid">
+                {setContent(process, renderWeather, oneWeekForecast)}
+            </div>
+        </>
     )
 }
 

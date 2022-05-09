@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Helmet } from 'react-helmet';
 
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
@@ -77,9 +78,18 @@ const CurrentWeather = (props) => {
     }
 
     return (
-        <Card style={{ width: '18rem' }}>
-            {setContent(process, renderWeather, currentWeather)}
-        </Card>
+        <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Current weather"
+                />
+                <title>Current weather</title>
+            </Helmet>
+            <Card style={{ width: '18rem' }}>
+                {setContent(process, renderWeather, currentWeather)}
+            </Card>
+        </>
     )
 }
 

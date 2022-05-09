@@ -7,12 +7,10 @@ import Spinner from '../../components/spinner/Spinner';
 import AppHeader from '../appHeader/AppHeader';
 import CitySearchForm from '../citySearchForm/CitySearchForm';
 
-// import CurrentWeather from '../currentWeather/CurrentWeather';
-// import DayForecastWeather from '../dayForecastWeather/DayForecastWeather';
-
 const CurrentWeather = lazy(() => import('../currentWeather/CurrentWeather'));
 const DayForecast = lazy(() => import('../dayForecast/DayForecast'));
 const WeekForecast = lazy(() => import('../weekForecast/WeekForecast'));
+const Page404 = lazy(() => import('../Page404/Page404'));
 
 function App() {
 
@@ -34,6 +32,7 @@ function App() {
             <Route path="/today" element={<DayForecast selectedCity={selectedCity} day='today' />} />
             <Route path="/tomorrow" element={<DayForecast selectedCity={selectedCity} day='tomorrow' />} />
             <Route path="/week" element={<WeekForecast selectedCity={selectedCity} />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </Suspense>
       </Container>
