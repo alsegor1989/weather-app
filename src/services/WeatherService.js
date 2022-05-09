@@ -37,6 +37,7 @@ const useWeatherService = () => {
             lat: location.lat,
             lon: location.lon,
             country: location.country,
+            state: location['state'] === undefined ? "" : location.state,
         }
     }
 

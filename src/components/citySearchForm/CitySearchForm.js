@@ -36,7 +36,7 @@ const CitySearchForm = (props) => {
 
     useEffect(() => {
         if (!cityName) {
-            setCityName(props.selectedCity.localName + ', ' + props.selectedCity.country)
+            setCityName(props.selectedCity.localName + ', ' + props.selectedCity.country + ', ' + props.selectedCity.state)
         }
     }, [props.selectedCity])
 
@@ -44,7 +44,7 @@ const CitySearchForm = (props) => {
         setCityName(e.target.value);
         if (e.nativeEvent.inputType === undefined) {
             const choosenCity = foundCities.filter((item) => {
-                return e.target.value === item.localName + ', ' + item.country;
+                return e.target.value === item.localName + ', ' + item.country + ', ' + item.state;
             });
             props.onCitySelected(choosenCity[0]);
             setIsSelected(true);
@@ -64,7 +64,7 @@ const CitySearchForm = (props) => {
     const renderCitiesList = ({ data }) => {
         const options = data.map((item, i) => {
             return (
-                <option key={i}>{item.localName + ', ' + item.country}</option>
+                <option key={i}>{item.localName + ', ' + item.country + ', ' + item.state}</option>
             )
         });
 

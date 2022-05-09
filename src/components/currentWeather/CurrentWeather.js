@@ -31,6 +31,7 @@ const CurrentWeather = (props) => {
 
     function renderWeather({ data }) {
         // console.log('renderCurrentWeather');
+        // console.log(data);
 
         const date = timeConverterFromUNIX(data.dt);
         const dateString = date.date + ' ' + date.month + ' ' + date.year + ' ' + addLeadingZeros(date.hour) + ':' + addLeadingZeros(date.min) + ':' + addLeadingZeros(date.sec);
@@ -51,7 +52,7 @@ const CurrentWeather = (props) => {
                     style={{ width: '200px' }}
                     className="mx-auto d-block" />
                 <Card.Body>
-                    <Card.Title id="city">{`Погода сейчас: ${data.name}`}</Card.Title>
+                    <Card.Title id="city">{`Погода сейчас: ${props.selectedCity.localName}`}</Card.Title>
                     <div id="updateTime">{`${dateString}`}</div>
                     <div id="temp">{`Температура: ${temp}° C`}</div>
                     <div id="feels_like">{`По ощущению: ${feels_like}° C`}</div>

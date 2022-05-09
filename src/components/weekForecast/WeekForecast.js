@@ -8,18 +8,16 @@ import img from '../../resources/img/arrow.png';
 import './weekForecast.scss';
 
 const WeekForecast = (props) => {
-    const [oneWeekForecast, setOneWWeekForecast] = useState(null);
+    const [oneWeekForecast, setOneWeekForecast] = useState(null);
     const { process, setProcess, getOneWeekForecast } = useWeatherService();
     const todayDate = new Date().getDate();
-    // const tomorrowDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).getDate();
 
     useEffect(() => {
         updateWeather();
     }, [props.selectedCity])
 
     const onOneWeekForecastLoaded = (weather) => {
-        console.log(weather);
-        setOneWWeekForecast(weather.daily);
+        setOneWeekForecast(weather.daily);
     }
 
     const updateWeather = () => {
@@ -34,11 +32,15 @@ const WeekForecast = (props) => {
 
     }
 
-    function renderWeather(data) {
-        console.log(data);
+    function renderWeather({ data }) {
         const weatherCards = data.map(item => {
             const date = timeConverterFromUNIX(item.dt);
 
+            if (date.date === todayDate) {
+                return null;
+            }
+
+            const currentDay = date.date + ' ' + date.month + ' ' + date.year;
             const temp = item.temp.day > 0 ? '+' + item.temp.day.toFixed(1) : '-' + item.temp.day.toFixed(1);
             const tempMax = item.temp.max > 0 ? '+' + item.temp.max.toFixed(1) : '-' + item.temp.max.toFixed(1);
             const tempMin = item.temp.min > 0 ? '+' + item.temp.min.toFixed(1) : '-' + item.temp.min.toFixed(1);
@@ -52,14 +54,14 @@ const WeekForecast = (props) => {
                         style={{ width: '100px' }}
                         className="mx-auto d-block" />
                     <Card.Body>
-                        <div id="debug">{`${date.dateRepr}`}</div>
-                        <div id="time" style={{ textAlign: 'center' }}>
+                        <div id="day">{`${currentDay}`}</div>
+                        {/* <div id="time" style={{ textAlign: 'center' }}>
                             {`${date.hour}`}
                             <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
-                        </div>
+                        </div> */}
                         <div id="temp">{`Темп.: ${temp}° C`}</div>
-                        <div id="tempMax">{`Тmax: ${tempMax}`}</div>
-                        <div id="tempMin">{`Тmin: ${tempMin}`}</div>
+                        <div id="tempMax">{`Тmax: ${tempMax}° C`}</div>
+                        <div id="tempMin">{`Тmin: ${tempMin}° C`}</div>
                         <div id="pressure">{`Д.: ${Math.round(item.pressure / 1.333)} мм рт. ст.`}</div>
                         <div id="humidity">{`Вл.: ${item.humidity}%`}</div>
                         <div id="wind" style={{ display: 'flex' }}>
