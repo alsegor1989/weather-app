@@ -15,7 +15,7 @@ const DayForecastWeather = lazy(() => import('../dayForecastWeather/DayForecastW
 
 function App() {
 
-  const [selectedCity, setCity] = useState(null);
+  const [selectedCity, setCity] = useState(JSON.parse(localStorage.getItem('selectedCity')));
 
   const onCitySelected = (selectedCity) => {
     setCity(selectedCity);
@@ -25,7 +25,6 @@ function App() {
   // useEffect(() => {
   //   if (localStorage.getItem('selectedCity')) {
   //     onCitySelected(JSON.parse(localStorage.getItem('selectedCity')));
-  //     // console.log(JSON.parse(localStorage.getItem('selectedCity')));
   //   }
   // }, [localStorage.getItem('selectedCity')])
 
@@ -33,7 +32,7 @@ function App() {
     <Router>
       <Container>
         <AppHeader />
-        <CitySearchForm onCitySelected={onCitySelected} />
+        <CitySearchForm onCitySelected={onCitySelected} selectedCity={selectedCity} />
         <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<CurrentWeather selectedCity={selectedCity} />} />

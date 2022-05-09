@@ -34,14 +34,11 @@ const CitySearchForm = (props) => {
         searchCities();
     }, [cityName])
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('selectedCity')) {
-    //         setIsSelected(true);
-    //         const cityFromStorage = JSON.parse(localStorage.getItem('selectedCity'));
-    //         setCityName(cityFromStorage.localName + ', ' + cityFromStorage.country);
-    //         // console.log(JSON.parse(localStorage.getItem('selectedCity')));
-    //     }
-    // }, [localStorage.getItem('selectedCity')])
+    useEffect(() => {
+        if (!cityName) {
+            setCityName(props.selectedCity.localName + ', ' + props.selectedCity.country)
+        }
+    }, [props.selectedCity])
 
     const onCityNameChange = (e) => {
         setCityName(e.target.value);
