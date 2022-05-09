@@ -11,7 +11,7 @@ import CitySearchForm from '../citySearchForm/CitySearchForm';
 // import DayForecastWeather from '../dayForecastWeather/DayForecastWeather';
 
 const CurrentWeather = lazy(() => import('../currentWeather/CurrentWeather'));
-const DayForecastWeather = lazy(() => import('../dayForecastWeather/DayForecastWeather'));
+const DayForecast = lazy(() => import('../dayForecast/DayForecast'));
 
 function App() {
 
@@ -22,12 +22,6 @@ function App() {
     localStorage.setItem('selectedCity', JSON.stringify(selectedCity));
   }
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('selectedCity')) {
-  //     onCitySelected(JSON.parse(localStorage.getItem('selectedCity')));
-  //   }
-  // }, [localStorage.getItem('selectedCity')])
-
   return (
     <Router>
       <Container>
@@ -36,8 +30,8 @@ function App() {
         <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<CurrentWeather selectedCity={selectedCity} />} />
-            <Route path="/today" element={<DayForecastWeather selectedCity={selectedCity} day='today' />} />
-            <Route path="/tomorrow" element={<DayForecastWeather selectedCity={selectedCity} day='tomorrow' />} />
+            <Route path="/today" element={<DayForecast selectedCity={selectedCity} day='today' />} />
+            <Route path="/tomorrow" element={<DayForecast selectedCity={selectedCity} day='tomorrow' />} />
             <Route path="/week" element={null} />
           </Routes>
         </Suspense>

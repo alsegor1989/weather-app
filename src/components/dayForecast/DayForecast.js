@@ -5,12 +5,12 @@ import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
 import { timeConverterFromUNIX, addLeadingZeros } from '../../services/TimeConverter';
 import img from '../../resources/img/arrow.png';
-import './dayForecastWeather.scss';
+import './dayForecast.scss';
 
-const DayForecastWeather = (props) => {
+const DayForecast = (props) => {
     const [todayWeahter, setTodayWeather] = useState(null);
     const [historicalWeahter, setHistoricalWeather] = useState([]);
-    const { process, setProcess, get5DaysForecastWeather, getHistoricalWeather } = useWeatherService();
+    const { process, setProcess, get5DaysForecast, getHistoricalWeather } = useWeatherService();
     const todayDate = new Date().getDate();
     const tomorrowDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).getDate();
 
@@ -35,7 +35,7 @@ const DayForecastWeather = (props) => {
         let tempHistoricalWeather = [];
 
         if (props.day === 'tomorrow') {
-            get5DaysForecastWeather(selectedCity)
+            get5DaysForecast(selectedCity)
                 .then(setHistoricalWeather([]))
                 .then(onTodayWeatherLoaded)
                 .then(() => setProcess('confirmed'));
@@ -44,14 +44,14 @@ const DayForecastWeather = (props) => {
                 .then((res) => tempHistoricalWeather.push(...res.hourly))
                 .then(() => getHistoricalWeather(selectedCity, new Date().setHours(0, 0, 0, 0) / 1000 + 60 * 60 * 3))
                 .then((res) => onHistoricalWeatherLoaded([...tempHistoricalWeather, ...res.hourly]))
-                .then(() => get5DaysForecastWeather(selectedCity))
+                .then(() => get5DaysForecast(selectedCity))
                 .then(onTodayWeatherLoaded)
                 .then(() => setProcess('confirmed'));
         }
     }
 
     const wrapRenderWeather = ({ data }) => {
-        console.log(data);
+        // console.log(data);
         return (
             <>
                 {renderHistoricalWeather(data.historicalWeahter)}
@@ -83,7 +83,7 @@ const DayForecastWeather = (props) => {
                         style={{ width: '100px' }}
                         className="mx-auto d-block" />
                     <Card.Body>
-                        <div id="debug">{`${date.dateRepr}`}</div>
+                        {/* <div id="debug">{`${date.dateRepr}`}</div> */}
                         <div id="time" style={{ textAlign: 'center' }}>
                             {`${date.hour}`}
                             <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
@@ -120,8 +120,6 @@ const DayForecastWeather = (props) => {
             }
 
             const temp = item.main.temp > 0 ? '+' + item.main.temp.toFixed(1) : '-' + item.main.temp.toFixed(1);
-            // const tempMax = item.main.temp_max > 0 ? '+' + item.main.temp_max.toFixed(1) : '-' + item.main.temp_max.toFixed(1);
-            // const tempMin = item.main.temp_min > 0 ? '+' + item.main.temp_min.toFixed(1) : '-' + item.main.temp_min.toFixed(1);
 
             return (
                 <Card style={{ width: '150px' }} key={item.dt}>
@@ -132,14 +130,12 @@ const DayForecastWeather = (props) => {
                         style={{ width: '100px' }}
                         className="mx-auto d-block" />
                     <Card.Body>
-                        <div id="debug">{`${date.dateRepr}`}</div>
+                        {/* <div id="debug">{`${date.dateRepr}`}</div> */}
                         <div id="time" style={{ textAlign: 'center' }}>
                             {`${date.hour}`}
                             <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
                         </div>
                         <div id="temp">{`Темп.: ${temp}`}</div>
-                        {/* <div id="tempMax">{`Тmax: ${tempMax}`}</div>
-                        <div id="tempMin">{`Тmin: ${tempMin}`}</div> */}
                         <div id="pressure">{`Д.: ${Math.round(item.main.pressure / 1.333)} мм рт. ст.`}</div>
                         <div id="humidity">{`Вл.: ${item.main.humidity}%`}</div>
                         <div id="wind" style={{ display: 'flex' }}>
@@ -167,4 +163,4 @@ const DayForecastWeather = (props) => {
     )
 }
 
-export default DayForecastWeather;
+export default DayForecast;

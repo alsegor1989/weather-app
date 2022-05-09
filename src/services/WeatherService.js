@@ -17,12 +17,12 @@ const useWeatherService = () => {
         return await request(`${_apiBase}onecall/timemachine?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&dt=${date}`);
     }
 
-    const get5DaysForecastWeather = async ({ lat, lon }) => {
+    const get5DaysForecast = async ({ lat, lon }) => {
         return await request(`${_apiBase}forecast?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru`);
     }
 
-    const getOneWeekWeather = async ({ lat, lon }) => {
-        return await request(`${_apiBase}forecast/daily?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=7`);
+    const getOneWeekForecast = async ({ lat, lon }) => {
+        return await request(`${_apiBase}onecall?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&exclude=current,minutely,hourly,alerts`);
     }
 
     const getCoordinatesByLocationName = async (cityName) => {
@@ -42,7 +42,7 @@ const useWeatherService = () => {
 
     return {
         request, clearError, process, setProcess,
-        getCurrentWeather, get5DaysForecastWeather, getOneWeekWeather, getHistoricalWeather,
+        getCurrentWeather, get5DaysForecast, getOneWeekForecast, getHistoricalWeather,
         getCoordinatesByLocationName
     }
 
