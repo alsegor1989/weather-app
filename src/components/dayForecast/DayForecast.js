@@ -88,7 +88,7 @@ const DayForecast = (props) => {
                             {`${date.hour}`}
                             <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
                         </div>
-                        <div id="temp">{`Темп.: ${temp}`}</div>
+                        <div id="temp">{`Темп.: ${temp}° C`}</div>
                         <div id="pressure">{`Д.: ${Math.round(item.pressure / 1.333)} мм рт. ст.`}</div>
                         <div id="humidity">{`Вл.: ${item.humidity}%`}</div>
                         <div id="wind" style={{ display: 'flex' }}>
@@ -135,7 +135,7 @@ const DayForecast = (props) => {
                             {`${date.hour}`}
                             <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
                         </div>
-                        <div id="temp">{`Темп.: ${temp}`}</div>
+                        <div id="temp">{`Темп.: ${temp}° C`}</div>
                         <div id="pressure">{`Д.: ${Math.round(item.main.pressure / 1.333)} мм рт. ст.`}</div>
                         <div id="humidity">{`Вл.: ${item.main.humidity}%`}</div>
                         <div id="wind" style={{ display: 'flex' }}>

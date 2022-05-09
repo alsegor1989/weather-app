@@ -53,8 +53,8 @@ const CurrentWeather = (props) => {
                 <Card.Body>
                     <Card.Title id="city">{`Погода сейчас: ${data.name}`}</Card.Title>
                     <div id="updateTime">{`${dateString}`}</div>
-                    <div id="temp">{`Температура: ${temp}`}</div>
-                    <div id="feels_like">{`По ощущению: ${feels_like}`}</div>
+                    <div id="temp">{`Температура: ${temp}° C`}</div>
+                    <div id="feels_like">{`По ощущению: ${feels_like}° C`}</div>
                     <div id="pressure">{`Давление: ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
                     <div id="humidity">{`Влажность: ${data.main.humidity}%`}</div>
                     <div id="sky">{`Описание: ${data.weather[0].description}`}</div>
