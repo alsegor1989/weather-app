@@ -52,7 +52,6 @@ const DayForecast = (props) => {
     }
 
     const wrapRenderWeather = ({ data }) => {
-        // console.log(data);
         return (
             <>
                 {renderHistoricalWeather(data.historicalWeahter)}

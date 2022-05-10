@@ -31,9 +31,6 @@ const CurrentWeather = (props) => {
     }
 
     function renderWeather({ data }) {
-        // console.log('renderCurrentWeather');
-        // console.log(data);
-
         const date = timeConverterFromUNIX(data.dt);
         const dateString = date.date + ' ' + date.month + ' ' + date.year + ' ' + addLeadingZeros(date.hour) + ':' + addLeadingZeros(date.min) + ':' + addLeadingZeros(date.sec);
         const sunrise = timeConverterFromUNIX(data.sys.sunrise);

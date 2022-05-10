@@ -3,7 +3,6 @@ import { Form, Row, Col } from 'react-bootstrap';
 
 import useWeatherService from '../../services/WeatherService';
 import Spinner from '../../components/spinner/Spinner';
-// import setContent from '../../utils/setContent';
 
 const setContent = (process, Component, data) => {
     switch (process) {
@@ -93,7 +92,6 @@ const CitySearchForm = (props) => {
             </Col>
         </Row>
     )
-
 }
 
 export default CitySearchForm;

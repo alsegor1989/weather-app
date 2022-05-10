@@ -56,10 +56,6 @@ const WeekForecast = (props) => {
                         className="mx-auto d-block" />
                     <Card.Body>
                         <div id="day">{`${currentDay}`}</div>
-                        {/* <div id="time" style={{ textAlign: 'center' }}>
-                            {`${date.hour}`}
-                            <span className="time-sup">{`${addLeadingZeros(date.min)}`}</span>
-                        </div> */}
                         <div id="temp">{`Темп.: ${temp}° C`}</div>
                         <div id="tempMax">{`Тmax: ${tempMax}° C`}</div>
                         <div id="tempMin">{`Тmin: ${tempMin}° C`}</div>

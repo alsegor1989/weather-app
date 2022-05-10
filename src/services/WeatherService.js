@@ -1,7 +1,5 @@
 import { useHttp } from '../hooks/http.hook.js';
 
-// import { timeConverterFromUNIX } from './TimeConverter';
-
 const useWeatherService = () => {
     const { request, clearError, process, setProcess } = useHttp();
 
@@ -13,7 +11,6 @@ const useWeatherService = () => {
     }
 
     const getHistoricalWeather = async ({ lat, lon }, date = new Date().setHours(0, 0, 0, 0) / 1000) => {
-        // console.log(timeConverterFromUNIX(date).dateRepr);
         return await request(`${_apiBase}onecall/timemachine?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&dt=${date}`);
     }
 
