@@ -1,4 +1,4 @@
-# A React SPA based on openweathermap
+# A React weather SPA using OpenWeatherMap API
 
 SPA can show current weather in selected city, today weather (combination of historical weather and forecast), tomorrow forecast and week forecast.
 
