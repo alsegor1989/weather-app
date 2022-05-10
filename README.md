@@ -1,5 +1,7 @@
 # A React weather SPA using OpenWeatherMap API
 
+![2022-05-10_101437](https://user-images.githubusercontent.com/98969952/167571778-a403c642-a329-4392-8592-b0a94f3ea664.png)
+
 SPA can show current weather in selected city, today weather (combination of historical weather and forecast), tomorrow forecast and week forecast.
 
 ## Available Scripts
