@@ -1,25 +1,28 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AppHeader = () => {
     return (
-        // <Container>
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/">Weather App</Navbar.Brand>
+                <NavLink className="navbar-brand" to="/">Weather App</NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Сейчас</Nav.Link>
-                        <Nav.Link href="/today">Сегодня</Nav.Link>
-                        <Nav.Link href="/tomorrow">Завтра</Nav.Link>
-                        <Nav.Link href="/week">Неделя</Nav.Link>
+                        <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                            to="/">Сейчас</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                            to="/today">Сегодня</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                            to="/tomorrow">Завтра</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                            to="/week">Неделя</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-        // </Container>
     )
 }
 

@@ -1,7 +1,5 @@
 import { useHttp } from '../hooks/http.hook.js';
 
-import { timeConverterFromUNIX } from './TimeConverter';
-
 const useWeatherService = () => {
     const { request, clearError, process, setProcess } = useHttp();
 
@@ -13,16 +11,15 @@ const useWeatherService = () => {
     }
 
     const getHistoricalWeather = async ({ lat, lon }, date = new Date().setHours(0, 0, 0, 0) / 1000) => {
-        console.log(timeConverterFromUNIX(date).dateRepr);
         return await request(`${_apiBase}onecall/timemachine?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&dt=${date}`);
     }
 
-    const getTodayWeather = async ({ lat, lon }) => {
-        return await request(`${_apiBase}forecast?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=8`);
+    const get5DaysForecast = async ({ lat, lon }) => {
+        return await request(`${_apiBase}forecast?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru`);
     }
 
-    const getOneWeekWeather = async ({ lat, lon }) => {
-        return await request(`${_apiBase}forecast/daily?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&cnt=7`);
+    const getOneWeekForecast = async ({ lat, lon }) => {
+        return await request(`${_apiBase}onecall?lat=${lat}&lon=${lon}&${_apiKey}&units=metric&lang=ru&exclude=current,minutely,hourly,alerts`);
     }
 
     const getCoordinatesByLocationName = async (cityName) => {
@@ -37,12 +34,13 @@ const useWeatherService = () => {
             lat: location.lat,
             lon: location.lon,
             country: location.country,
+            state: location['state'] === undefined ? "" : location.state,
         }
     }
 
     return {
         request, clearError, process, setProcess,
-        getCurrentWeather, getTodayWeather, getOneWeekWeather, getHistoricalWeather,
+        getCurrentWeather, get5DaysForecast, getOneWeekForecast, getHistoricalWeather,
         getCoordinatesByLocationName
     }
 

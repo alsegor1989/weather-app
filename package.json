@@ -1,6 +1,7 @@
 {
   "name": "weather-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "A React SPA based on openweathermap",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -10,10 +11,16 @@
     "react": "^18.0.0",
     "react-bootstrap": "^2.3.0",
     "react-dom": "^18.0.0",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "keywords": [
+    "openweathermap",
+    "JavaScript",
+    "React"
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

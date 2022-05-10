@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Helmet } from 'react-helmet';
 
 import useWeatherService from '../../services/WeatherService';
 import setContent from '../../utils/setContent';
@@ -29,7 +30,7 @@ const CurrentWeather = (props) => {
             .then(() => setProcess('confirmed'));
     }
 
-    function renderWeather(data) {
+    function renderWeather({ data }) {
         const date = timeConverterFromUNIX(data.dt);
         const dateString = date.date + ' ' + date.month + ' ' + date.year + ' ' + addLeadingZeros(date.hour) + ':' + addLeadingZeros(date.min) + ':' + addLeadingZeros(date.sec);
         const sunrise = timeConverterFromUNIX(data.sys.sunrise);
@@ -49,10 +50,10 @@ const CurrentWeather = (props) => {
                     style={{ width: '200px' }}
                     className="mx-auto d-block" />
                 <Card.Body>
-                    <Card.Title id="city">{`Погода сейчас: ${data.name}`}</Card.Title>
+                    <Card.Title id="city">{`Погода сейчас: ${props.selectedCity.localName}`}</Card.Title>
                     <div id="updateTime">{`${dateString}`}</div>
-                    <div id="temp">{`Температура: ${temp}`}</div>
-                    <div id="feels_like">{`По ощущению: ${feels_like}`}</div>
+                    <div id="temp">{`Температура: ${temp}° C`}</div>
+                    <div id="feels_like">{`По ощущению: ${feels_like}° C`}</div>
                     <div id="pressure">{`Давление: ${Math.round(data.main.pressure / 1.333)} мм рт. ст.`}</div>
                     <div id="humidity">{`Влажность: ${data.main.humidity}%`}</div>
                     <div id="sky">{`Описание: ${data.weather[0].description}`}</div>
@@ -74,9 +75,18 @@ const CurrentWeather = (props) => {
     }
 
     return (
-        <Card style={{ width: '18rem' }}>
-            {setContent(process, () => renderWeather(currentWeather))}
-        </Card>
+        <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Current weather"
+                />
+                <title>Current weather</title>
+            </Helmet>
+            <Card style={{ width: '18rem' }}>
+                {setContent(process, renderWeather, currentWeather)}
+            </Card>
+        </>
     )
 }
 

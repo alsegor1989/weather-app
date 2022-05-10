@@ -3,7 +3,6 @@ import { Form, Row, Col } from 'react-bootstrap';
 
 import useWeatherService from '../../services/WeatherService';
 import Spinner from '../../components/spinner/Spinner';
-// import setContent from '../../utils/setContent';
 
 const setContent = (process, Component, data) => {
     switch (process) {
@@ -34,11 +33,17 @@ const CitySearchForm = (props) => {
         searchCities();
     }, [cityName])
 
+    useEffect(() => {
+        if (!cityName) {
+            setCityName(props.selectedCity.localName + ', ' + props.selectedCity.country + ', ' + props.selectedCity.state)
+        }
+    }, [props.selectedCity])
+
     const onCityNameChange = (e) => {
         setCityName(e.target.value);
         if (e.nativeEvent.inputType === undefined) {
             const choosenCity = foundCities.filter((item) => {
-                return e.target.value === item.localName + ', ' + item.country;
+                return e.target.value === item.localName + ', ' + item.country + ', ' + item.state;
             });
             props.onCitySelected(choosenCity[0]);
             setIsSelected(true);
@@ -55,10 +60,10 @@ const CitySearchForm = (props) => {
         }
     }
 
-    const renderCitiesList = (arr) => {
-        const options = arr.map((item, i) => {
+    const renderCitiesList = ({ data }) => {
+        const options = data.map((item, i) => {
             return (
-                <option key={i}>{item.localName + ', ' + item.country}</option>
+                <option key={i}>{item.localName + ', ' + item.country + ', ' + item.state}</option>
             )
         });
 
@@ -72,20 +77,21 @@ const CitySearchForm = (props) => {
     return (
         <Row className="mb-3">
             <Col md={4}>
-                <Form>
+                <Form >
                     <Form.Label>Город:</Form.Label>
-                    <Form.Control
-                        type='text'
-                        list='cityName'
-                        placeholder='Введите название города'
-                        value={cityName}
-                        onChange={onCityNameChange}></Form.Control>
-                    {setContent(process, () => renderCitiesList(foundCities))}
+                    <div style={{ display: 'flex' }}>
+                        <Form.Control
+                            type='text'
+                            list='cityName'
+                            placeholder='Введите название города'
+                            value={cityName}
+                            onChange={onCityNameChange}></Form.Control>
+                        {setContent(process, renderCitiesList, foundCities)}
+                    </div>
                 </Form>
             </Col>
         </Row>
     )
-
 }
 
 export default CitySearchForm;
